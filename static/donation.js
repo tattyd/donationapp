@@ -30,10 +30,12 @@ $( document ).ready(function() {
 
     $('#nameInput').change(function() {
         validateName();
+        updateUI();
     });
 
     $('#amountInput').change(function() {
-        validateAmount()
+        validateAmount();
+        updateUI();
     });
 
     $('#backButton').click(function() {
@@ -100,20 +102,24 @@ var donationAmount = 0.0;
 var processingFee = 0.0;
 
 function validateAmount() {
-    if($('#amountInput').existsWithValue()){
-        
+    if($('#amountInput').existsWithValue()){ 
         donationAmount = parseInt($('#amountInput').val()); // it goes horribly wrong without parseInt
         processingFee = ((donationAmount + 0.3) / 0.971) - donationAmount;
-        console.log('fee: '+processingFee);
-
-        $('#donationHint').text("+ processing fee $"+processingFee.toFixed(2));
-        $('.totalAmount').text("$" + (donationAmount+processingFee).toFixed(2));
         amountIsValid = true;
     } else {
-        $('#donationHint').text("");
-        $('.totalAmount').text("");
-
         amountIsValid = false;
     }
     console.log("Valid amount? "+amountIsValid);
+}
+
+function updateUI() {
+    $('#nextButton').prop('disabled', !(amountIsValid && nameIsValid));
+
+    if(amountIsValid) {
+        $('#donationHint').text("+ processing fee $"+processingFee.toFixed(2));
+        $('.totalAmount').text("$" + (donationAmount+processingFee).toFixed(2));
+    } else {
+        $('#donationHint').text("");
+        $('.totalAmount').text("");
+    }
 }
