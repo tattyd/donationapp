@@ -42,7 +42,7 @@ $( document ).ready(function() {
     })
 
     $('#nextButton').click(function() {
-        var payload = { "amount":10, "clientSecret": clientSecret};
+        var payload = { "amount":donationAmount, "clientSecret": clientSecret};
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -96,17 +96,23 @@ function validateName() {
 }
 
 var amountIsValid = false;
+var donationAmount = 0.0;
+var processingFee = 0.0;
+
 function validateAmount() {
     if($('#amountInput').existsWithValue()){
         
-        var donationAmount = parseInt($('#amountInput').val()); // it goes horribly wrong without parseInt
-        var processingFee = ((donationAmount + 0.3) / 0.971) - donationAmount;
+        donationAmount = parseInt($('#amountInput').val()); // it goes horribly wrong without parseInt
+        processingFee = ((donationAmount + 0.3) / 0.971) - donationAmount;
         console.log('fee: '+processingFee);
 
         $('#donationHint').text("+ processing fee $"+processingFee.toFixed(2));
+        $('.totalAmount').text("$" + (donationAmount+processingFee).toFixed(2));
         amountIsValid = true;
     } else {
         $('#donationHint').text("");
+        $('.totalAmount').text("");
+
         amountIsValid = false;
     }
     console.log("Valid amount? "+amountIsValid);
