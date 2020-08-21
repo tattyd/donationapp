@@ -28,6 +28,8 @@ var clientSecret = "" // hold onto a single clientSecret to allow users to go ba
 $( document ).ready(function() {
     console.log('   ___-___  o==o======   . ENGAGE!   .\n=========== ||//\n            \ \ |//__\n            #_______/');
 
+    seekToPage(0);
+    
     $('#nameInput').change(function() {
         validateName();
         updateUI();
@@ -37,11 +39,6 @@ $( document ).ready(function() {
         validateAmount();
         updateUI();
     });
-
-    $('#backButton').click(function() {
-        destroyStripe();
-        $('#pager').carousel(0);
-    })
 
     $('#nextButton').click(function() {
         var payload = { "amount":donationAmount, "clientSecret": clientSecret};
@@ -55,13 +52,18 @@ $( document ).ready(function() {
                 console.log(result); 
                 clientSecret = result["clientSecret"];
                 mountStripe();
-                $('#pager').carousel(1);
+                seekToPage(1);
             },
             error : function(result){
                 console.log(result);
             }
         });
     });
+
+    $('#backButton').click(function() {
+        destroyStripe();
+        seekToPage(0);
+    })
 
     
 });
@@ -121,5 +123,24 @@ function updateUI() {
     } else {
         $('#donationHint').text("");
         $('.totalAmount').text("");
+    }
+}
+
+function seekToPage(newPage) {
+    $('#page0, #page1, #page2').removeClass('d-none');
+    $
+    switch(newPage) {
+        case 0:
+            console.log("seeking page "+newPage);    
+            $('#page1, #page2').addClass('d-none');
+            break;
+        case 1:
+            console.log("seeking page "+newPage);    
+            $('#page0, #page2').addClass('d-none');
+            break;
+        case 2:
+            console.log("seeking page "+newPage);    
+            $('#page0, #page1').addClass('d-none');
+            break;
     }
 }
