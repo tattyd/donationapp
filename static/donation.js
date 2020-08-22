@@ -75,14 +75,26 @@ function mountStripe() {
     cardElement.on("change", function (event) {
       // Disable the Pay button if there are no card details in the Element
       $("#submitButton").prop("disabled", !event.complete);
-      $("#card-error").text(event.error ? event.error.message : "");
+      updateCardError(event.error ? event.error.message : "");
     });
 
     $("#payment-form").on("submit", function(event) {
       event.preventDefault();
-      //payWithCard(stripe, card, data.clientSecret);
-      // Process the payment, passing in the clientSecret
+      processPayment(stripe, cardElement, clientSecret);
     });
+}
+
+function processPayment(stripe, card, clientSecret) {
+    stripe.confirmCardPayment(clientSecret,
+        {
+            payment_method: { card: card }
+        }).then(function(result) {
+            if(!result.error) {
+                seekToPage(2);
+            } else {
+                updateCardError(result.error.message);
+            }
+        });
 }
 
 function destroyStripe() {
@@ -124,6 +136,10 @@ function updateUI() {
         $('#donationHint').text("");
         $('.totalAmount').text("");
     }
+}
+
+function updateCardError(errorString) {
+    $("#card-error").text(errorString);
 }
 
 function seekToPage(newPage) {
