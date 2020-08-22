@@ -40,10 +40,10 @@
                       <div id="page1" align="center">
                         <form id="payment-form">
                             <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                            <small id="card-error" role="alert"></small>
                             <div class="form-group">
-                                <button id="backButton" class="btn brn-secondary">Back</button>
-                                <button id="submitPayment" class="btn btn-primary">Pay <span class="totalAmount"></span></button>
-                                <small id="card-error" role="alert"></small>
+                                <button id="backButton" class="btn btn-secondary">Back</button>
+                                <button id="submitButton" class="btn btn-primary" disabled>Pay <span class="totalAmount"></span></button>
                             </div>
                           </form>
                       </div>

@@ -29,7 +29,7 @@ $( document ).ready(function() {
     console.log('   ___-___  o==o======   . ENGAGE!   .\n=========== ||//\n            \ \ |//__\n            #_______/');
 
     seekToPage(0);
-    
+
     $('#nameInput').change(function() {
         validateName();
         updateUI();
@@ -74,8 +74,8 @@ function mountStripe() {
 
     cardElement.on("change", function (event) {
       // Disable the Pay button if there are no card details in the Element
-      $("#submitButton").prop("disabled", event.empty);
-      document.querySelector("#card-error").textContent = event.error ? event.error.message : "";
+      $("#submitButton").prop("disabled", !event.complete);
+      $("#card-error").text(event.error ? event.error.message : "");
     });
 
     $("#payment-form").on("submit", function(event) {
