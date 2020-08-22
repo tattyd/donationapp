@@ -8,15 +8,22 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <title>Donate now</title>
+
+    <style>
+      .bg-lightgrey {
+        background-color: #f4f4f4;
+        border-radius: 10px;
+      }
+    </style>
   </head>
   <body>
     
     <div class="container">
         <div class="row">
-			<div class="col-md-5" align="center">
+			<div class="col-md-5 p-3 m-3" align="center">
                 Donate to David's Pub Quiz
-
-                      <div id="page0" align="center">
+                <div id="page0" align="center">    
+                <div class="p-3 m-3 bg-lightgrey">
                         <form>
                             <div class="form-group">
                               <label for="nameInput">Your name</label>
@@ -36,23 +43,32 @@
                             <button id="nextButton" type="button" class="btn btn-primary" disabled>Pay now</button>
                           </form>
                       </div>
-
-                      <div id="page1" align="center">
+                    </div>
+                    <div id="page1" align="center">
+                    
                         <form id="payment-form">
+                          <div class="p-3 m-3 bg-lightgrey">
                             <div id="card-element"><!--Stripe.js injects the Card Element--></div>
+                            </div>
                             <small id="card-error" role="alert"></small>
                             <div class="form-group">
                                 <button id="backButton" class="btn btn-secondary">Back</button>
-                                <button id="submitButton" class="btn btn-primary" disabled>Pay <span class="totalAmount"></span></button>
+                                <button id="submitButton" class="btn btn-primary" disabled>
+                                  <span class="spinner-border spinner-border-sm d-none" id="loadingSpinner" role="status" aria-hidden="true"></span>
+                                  Pay <span class="totalAmount"></span>
+                                </button>
                             </div>
                           </form>
-                      </div>
+                    </div>
 
-                      <div id="page2">
+                    <div id="page2">
+                    <div class="p-3 m-3 bg-lightgrey">
+                      
                         Thanks for your donation!
-                        <br />
+                        <br /><br />
                         <a id="donateAgain" class="btn btn-primary">Donate again</a>
                       </div>
+                    </div>
             </div>
             
             

@@ -84,7 +84,11 @@ function mountStripe() {
 
     $("#payment-form").on("submit", function(event) {
       event.preventDefault();
+      paymentInProgress = true;
+      updateUI();
       processPayment(stripe, cardElement, clientSecret);
+      paymentInProgress = false;
+      updateUI();
     });
 }
 
@@ -132,8 +136,15 @@ function validateAmount() {
     console.log("Valid amount? "+amountIsValid);
 }
 
+var paymentInProgress = false;
 function updateUI() {
     $('#nextButton').prop('disabled', !(amountIsValid && nameIsValid));
+
+    if(paymentInProgress) {
+        $('#loadingSpinner').removeClass('d-none');
+    } else {
+        $('#loadingSpinner').addClass('d-none');
+    }
 
     if(amountIsValid) {
         $('#donationHint').text("+ processing fee $"+processingFee.toFixed(2));
