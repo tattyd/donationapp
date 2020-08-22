@@ -24,7 +24,7 @@ var stripeStyle = {
   };
 var clientSecret = "" // hold onto a single clientSecret to allow users to go back and edit purchase amount
 
-// Set up bindings.
+// Set up bindings on page load.
 $( document ).ready(function() {
     console.log('   ___-___  o==o======   . ENGAGE!   .\n=========== ||//\n            \ \ |//__\n            #_______/');
 
@@ -72,6 +72,7 @@ $( document ).ready(function() {
     
 });
 
+// Create the CardElement when required
 function mountStripe() {
     cardElement = elements.create("card", { style: stripeStyle });
     cardElement.mount("#card-element");
@@ -109,6 +110,7 @@ function destroyStripe() {
     cardElement.destroy();
 }
 
+// Managing various UI state
 var nameIsValid = false;
 var donationName = "";
 function validateName() {

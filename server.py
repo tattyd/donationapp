@@ -48,7 +48,6 @@ def create_intent():
             return_secret = client_secret
 
         else:
-
             intent = stripe.PaymentIntent.create(
                 amount=total_to_charge,
                 description=donation_name,

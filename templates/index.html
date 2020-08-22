@@ -1,86 +1,96 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <title>Donate now</title>
-
-    <style>
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        name="viewport"><!-- Bootstrap CSS -->
+  <link crossorigin="anonymous"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+        rel="stylesheet">
+  <title>Donate now</title>
+  <style>
       .bg-lightgrey {
         background-color: #f4f4f4;
         border-radius: 10px;
       }
-    </style>
-  </head>
-  <body>
-    
-    <div class="container">
-        <div class="row">
-			<div class="col-md-5 p-3 m-3" align="center">
-                Donate to David's Pub Quiz
-                <div id="page0" align="center">    
-                <div class="p-3 m-3 bg-lightgrey">
-                        <form>
-                            <div class="form-group">
-                              <label for="nameInput">Your name</label>
-                              <input type="text" class="form-control" id="nameInput" aria-describedby="emailHelp">
-                              <small id="nameHint" class="form-text text-muted"></small>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">$</span>
-                                    <!-- massive hack but it works for now...-->
-                                    <input type="number" onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode >= 48 && event.charCode <= 57"
-                                        class="form-control" id="amountInput">
-                                </div>
-                              <small id="donationHint" class="form-text text-muted"></small>
-                            </div>
-        
-                            <button id="nextButton" type="button" class="btn btn-primary" disabled>Pay now</button>
-                          </form>
-                      </div>
-                    </div>
-                    <div id="page1" align="center">
-                    
-                        <form id="payment-form">
-                          <div class="p-3 m-3 bg-lightgrey">
-                            <div id="card-element"><!--Stripe.js injects the Card Element--></div>
-                            </div>
-                            <small id="card-error" role="alert"></small>
-                            <div class="form-group">
-                                <button id="backButton" class="btn btn-secondary">Back</button>
-                                <button id="submitButton" class="btn btn-primary" disabled>
-                                  <span class="spinner-border spinner-border-sm d-none" id="loadingSpinner" role="status" aria-hidden="true"></span>
-                                  Pay <span class="totalAmount"></span>
-                                </button>
-                            </div>
-                          </form>
-                    </div>
-
-                    <div id="page2">
-                    <div class="p-3 m-3 bg-lightgrey">
-                      
-                        Thanks for your donation!
-                        <br /><br />
-                        <a id="donateAgain" class="btn btn-primary">Donate again</a>
-                      </div>
-                    </div>
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div align="center"
+           class="col-md-5 p-3 m-3">
+        Donate to David's Pub Quiz
+        <div align="center"
+             id="page0">
+          <div class="p-3 m-3 bg-lightgrey">
+            <form>
+              <div class="form-group">
+                <label for="nameInput">Your name</label> <input aria-describedby="emailHelp"
+                     class="form-control"
+                     id="nameInput"
+                     type="text"> <small class="form-text text-muted"
+                     id="nameHint"></small>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <span class="input-group-addon">$</span> <!-- massive hack but it works for now...-->
+                   <input class="form-control"
+                       id="amountInput"
+                       onkeypress="return (event.charCode == 8 || event.charCode == 0) ? null : event.charCode &gt;= 48 && event.charCode &lt;= 57"
+                       type="number">
+                </div><small class="form-text text-muted"
+                     id="donationHint"></small>
+              </div><button class="btn btn-primary"
+                    disabled
+                    id="nextButton"
+                    type="button">Pay now</button>
+            </form>
+          </div>
+        </div>
+        <div align="center"
+             id="page1">
+          <form id="payment-form"
+                name="payment-form">
+            <div class="p-3 m-3 bg-lightgrey">
+              <div id="card-element">
+                <!--Stripe.js injects the Card Element-->
+              </div>
+            </div><small id="card-error"
+                  role="alert"></small>
+            <div class="form-group">
+              <button class="btn btn-secondary"
+                   id="backButton">Back</button> <button class="btn btn-primary"
+                   disabled
+                   id="submitButton"><span aria-hidden="true"
+                    class="spinner-border spinner-border-sm d-none"
+                    id="loadingSpinner"
+                    role="status"></span> Pay</button>
             </div>
-            
-            
-		</div>
-      </div>   
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-    <script src="https://js.stripe.com/v3/"></script>
-    <script src="static/donation.js"> </script>
+          </form>
+        </div>
+        <div id="page2">
+          <div class="p-3 m-3 bg-lightgrey">
+            Thanks for your donation!<br>
+            <br>
+            <a class="btn btn-primary"
+                 id="donateAgain">Donate again</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+  <script crossorigin="anonymous"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script> 
+  <script crossorigin="anonymous"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+  <script src="https://js.stripe.com/v3/"></script> 
+  <script src="static/donation.js"></script>
 </body>
 </html>
