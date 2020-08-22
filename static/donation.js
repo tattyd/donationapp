@@ -63,6 +63,10 @@ $( document ).ready(function() {
     $('#backButton').click(function() {
         destroyStripe();
         seekToPage(0);
+    });
+
+    $('#donateAgain').click(function() {
+        location.reload();
     })
 
     
@@ -147,15 +151,12 @@ function seekToPage(newPage) {
     $
     switch(newPage) {
         case 0:
-            console.log("seeking page "+newPage);    
             $('#page1, #page2').addClass('d-none');
             break;
         case 1:
-            console.log("seeking page "+newPage);    
             $('#page0, #page2').addClass('d-none');
             break;
         case 2:
-            console.log("seeking page "+newPage);    
             $('#page0, #page1').addClass('d-none');
             break;
     }
