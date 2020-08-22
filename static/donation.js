@@ -41,7 +41,7 @@ $( document ).ready(function() {
     });
 
     $('#nextButton').click(function() {
-        var payload = { "amount":donationAmount, "clientSecret": clientSecret};
+        var payload = { "amount":donationAmount, "clientSecret": clientSecret, "donationName":donationName};
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
@@ -106,9 +106,11 @@ function destroyStripe() {
 }
 
 var nameIsValid = false;
+var donationName = "";
 function validateName() {
     if($('#nameInput').existsWithValue()){
         nameIsValid = true;
+        donationName = $('#nameInput').val();
     } else {
         nameIdValid = false;
     }

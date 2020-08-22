@@ -21,7 +21,6 @@ def index(name=None):
 def calculate_total_payment_in_magic_stripe_units(donation):
     return math.ceil(100 * ((donation + 0.3) / 0.971))
 
-# TODO: Handle _update_ when a clientSecret is already passed in, instead of always recreating.
 @app.route('/create-intent', methods=["POST"])
 def create_intent():
     print("Received a request to create intent")
@@ -30,6 +29,7 @@ def create_intent():
         payload = request.get_json()
         amount = payload['amount']
         client_secret = payload['clientSecret']
+        donation_name = payload['donationName']
 
         print('amount to donate is: $' + str(amount))
         total_to_charge = calculate_total_payment_in_magic_stripe_units(amount)
@@ -51,6 +51,7 @@ def create_intent():
 
             intent = stripe.PaymentIntent.create(
                 amount=total_to_charge,
+                description=donation_name,
                 currency='usd'
             )
 
@@ -64,3 +65,24 @@ def create_intent():
     except Exception as e:
         print(e)
         return jsonify(error=str(e)), 403
+
+@app.route('/webhook', methods=["POST"])
+def webhook():
+
+        payload = request.get_json()
+        print("Webhook received. Type: "+payload['type'])
+        
+        event = stripe.Event.construct_from(
+            payload, stripe.api_key
+        )
+        
+        transaction_log = []
+        with open('transaction_log.json', "r") as logfile:
+            transaction_log = json.load(logfile)
+        
+        transaction_log.append(event)
+
+        with open('transaction_log.json', 'w') as logfile:
+            json.dump(transaction_log, logfile)
+
+        return "", 200
