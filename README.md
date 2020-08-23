@@ -16,6 +16,7 @@ Then, run the Flask server:
 ```
 export FLASK_APP=server.py
 export FLASK_ENV=development
+export STRIPE_KEY=sk_test_yourstripesecretkey
 flask run
 ```
 
