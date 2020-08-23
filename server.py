@@ -4,13 +4,13 @@ from flask import jsonify
 from flask import request
 import json
 import math
+import os
 import stripe
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
-# This is your real test secret API key.
-stripe.api_key = "sk_test_51HIH7JDYPps3j2jb9vpCqaj2JYtyWzVceQrh8eHipT2Ctpof7viyqd6fsxpcMfdweE28ugNIuPmjRPEeLHqtzEwc009dOROhaF"
+stripe.api_key = os.environ['STRIPE_KEY']
 
 intentDict = {}
 
